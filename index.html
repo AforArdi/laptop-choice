@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Dev Laptop Buying Guide - Bangladesh Edition</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Chosen Palette: Warm Neutrals & Deep Teal -->
+    <!-- Background: Stone-50 for a calm, paper-like feel. -->
+    <!-- Text: Stone-800 for high readability. -->
+    <!-- Accent: Teal-700/600 for a professional, trustworthy data feel. -->
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        /* Custom Chart Container Styles - Strictly Enforced */
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            height: 300px; /* Base height */
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        @media (min-width: 768px) {
+            .chart-wrapper {
+                height: 350px; 
+            }
+        }
+
+        /* Hide scrollbar for clean horizontal scrolling lists if used */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased selection:bg-teal-200 selection:text-teal-900">
+
+    <!-- Application Structure Plan:
+         1. Header & Context: Sets the scene (Budget: 80-85k BDT, Goal: Web Dev).
+         2. Dashboard Overview: High-level metrics visualization (Price vs. Performance, Screen Real Estate).
+            Goal: Quick comparative analysis.
+         3. Smart Filters: Interactive controls to narrow down choices based on user priority (Performance vs. Portability).
+         4. The Contenders (Grid): Detailed cards for the 5 selected laptops. 
+            Interaction: Expand for details, visual specs bars.
+         5. Comparative Analysis Table: Side-by-side technical specs for deep diving.
+         6. Recommendation Engine: Simple logic to suggest the 'Winner' based on user selected criteria.
+    -->
+
+    <!-- Visualization & Content Choices:
+         1. Scatter Chart (Chart.js): Price vs. CPU Score. Shows value for money. 
+         2. Bar Chart (Chart.js): Screen Real Estate (Pixels). Critical for coding (IDE space).
+         3. Dynamic Cards: HTML/JS. Display specs, pros/cons, and calculated "Dev Score".
+         4. Justification: Canvas charts provide the best interactivity for comparing numeric data (benchmarks/price) without SVGs.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation / Header -->
+    <nav class="bg-white border-b border-stone-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl font-bold text-teal-700">DevGear<span class="text-stone-400">BD</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-stone-600">
+                    <a href="#dashboard" class="hover:text-teal-600 transition-colors">Market Analysis</a>
+                    <a href="#laptops" class="hover:text-teal-600 transition-colors">The Top 5</a>
+                    <a href="#comparison" class="hover:text-teal-600 transition-colors">Specs Table</a>
+                </div>
+                <button onclick="scrollToSection('recommendation')" class="bg-teal-700 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-teal-800 transition-colors shadow-sm">
+                    Find My Match
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-stone-100 py-12 border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl font-extrabold tracking-tight text-stone-900 sm:text-5xl mb-4">
+                    Best Laptops for Web Development <br>
+                    <span class="text-teal-600 text-3xl sm:text-4xl">Under 85,000 BDT</span>
+                </h1>
+                <p class="text-lg text-stone-600 mb-6 leading-relaxed">
+                    We analyzed the current Bangladeshi market to find the best machines for coding. 
+                    <strong>Criteria:</strong> Minimum 16GB RAM, 512GB SSD, Core i5 (12th Gen+), and screens suitable for long coding sessions.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white border border-stone-300 text-stone-700 shadow-sm">
+                        🇧🇩 BD Market Availability
+                    </span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white border border-stone-300 text-stone-700 shadow-sm">
+                        ⚡ Min 16GB RAM
+                    </span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white border border-stone-300 text-stone-700 shadow-sm">
+                        🚀 Core i5 12th Gen+
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+        <!-- Section 1: Market Dashboard -->
+        <section id="dashboard" class="scroll-mt-24">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-stone-900 mb-2">Market Analysis: Value & Screen Real Estate</h2>
+                <p class="text-stone-600 max-w-2xl">
+                    For web development, two factors matter immensely: <strong>Processing Power (CPU)</strong> for compiling code/running servers, and <strong>Screen Real Estate</strong> for viewing code and previews simultaneously. 
+                    <br><br>
+                    Review the charts below to see how our top 5 picks compare.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Chart 1: Price vs Performance -->
+                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                    <h3 class="text-lg font-semibold text-stone-800 mb-4 flex items-center gap-2">
+                        <span>📊</span> Price vs. CPU Performance
+                    </h3>
+                    <div class="chart-wrapper">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                    <p class="text-xs text-stone-500 mt-3 text-center">
+                        Higher & Further Right is Better. Performance based on PassMark benchmarks.
+                    </p>
+                </div>
+
+                <!-- Chart 2: Screen Real Estate -->
+                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                    <h3 class="text-lg font-semibold text-stone-800 mb-4 flex items-center gap-2">
+                        <span>🖥️</span> Vertical Screen Space (Pixels)
+                    </h3>
+                    <div class="chart-wrapper">
+                        <canvas id="screenChart"></canvas>
+                    </div>
+                    <p class="text-xs text-stone-500 mt-3 text-center">
+                        More vertical pixels = More lines of code visible without scrolling.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Top 5 Candidates -->
+        <section id="laptops" class="scroll-mt-24">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-stone-900 mb-2">The Top 5 Contenders</h2>
+                    <p class="text-stone-600">Curated specifically for the 80k-85k BDT budget range.</p>
+                </div>
+                
+                <!-- Filters -->
+                <div class="flex gap-2 bg-white p-1 rounded-lg border border-stone-200 shadow-sm">
+                    <button onclick="filterLaptops('all')" class="filter-btn active px-4 py-2 rounded-md text-sm font-medium transition-colors bg-teal-100 text-teal-800" data-filter="all">All</button>
+                    <button onclick="filterLaptops('performance')" class="filter-btn px-4 py-2 rounded-md text-sm font-medium text-stone-600 hover:bg-stone-100 transition-colors" data-filter="performance">High Performance</button>
+                    <button onclick="filterLaptops('display')" class="filter-btn px-4 py-2 rounded-md text-sm font-medium text-stone-600 hover:bg-stone-100 transition-colors" data-filter="display">Best Display</button>
+                </div>
+            </div>
+
+            <!-- Laptop Grid -->
+            <div id="laptop-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Cards will be injected here via JS -->
+            </div>
+        </section>
+
+        <!-- Section 3: Recommendation Tool -->
+        <section id="recommendation" class="bg-teal-900 rounded-2xl p-8 md:p-12 text-white shadow-xl scroll-mt-24 relative overflow-hidden">
+            <!-- Decorative circle -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-teal-800 rounded-full opacity-50"></div>
+            
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-4">Can't Decide?</h2>
+                    <p class="text-teal-100 mb-8 text-lg">
+                        Tell us your primary coding environment priority, and we'll highlight the best match.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-teal-800 transition cursor-pointer group" onclick="highlightRecommendation('performance')">
+                            <div class="w-10 h-10 rounded-full bg-teal-700 flex items-center justify-center text-xl shadow-sm group-hover:bg-white group-hover:text-teal-900 transition">🚀</div>
+                            <div>
+                                <h4 class="font-bold">Raw Speed</h4>
+                                <p class="text-teal-200 text-sm">I run virtual machines, Docker containers, and compile heavy apps.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-teal-800 transition cursor-pointer group" onclick="highlightRecommendation('display')">
+                            <div class="w-10 h-10 rounded-full bg-teal-700 flex items-center justify-center text-xl shadow-sm group-hover:bg-white group-hover:text-teal-900 transition">👁️</div>
+                            <div>
+                                <h4 class="font-bold">Visual Comfort</h4>
+                                <p class="text-teal-200 text-sm">I need screen space for IDEs and accurate colors for frontend design.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-teal-800 transition cursor-pointer group" onclick="highlightRecommendation('balance')">
+                            <div class="w-10 h-10 rounded-full bg-teal-700 flex items-center justify-center text-xl shadow-sm group-hover:bg-white group-hover:text-teal-900 transition">⚖️</div>
+                            <div>
+                                <h4 class="font-bold">Balanced & Portable</h4>
+                                <p class="text-teal-200 text-sm">I need a solid all-rounder that's easy to carry to university or work.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white text-stone-800 rounded-xl p-6 shadow-2xl min-h-[300px] flex flex-col justify-center items-center text-center hidden" id="result-card">
+                    <p class="text-stone-500 uppercase tracking-widest text-xs font-bold mb-2">Your Recommended Match</p>
+                    <h3 class="text-2xl font-bold text-teal-700 mb-2" id="res-title">Laptop Name</h3>
+                    <div class="text-4xl mb-4" id="res-icon">💻</div>
+                    <p class="text-stone-600 mb-6 px-4" id="res-desc">Description goes here.</p>
+                    <div class="w-full bg-stone-100 rounded-lg p-3">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Approx. Price</span>
+                            <span class="font-bold" id="res-price">80k</span>
+                        </div>
+                        <a href="#laptops" class="block w-full bg-teal-600 text-white font-bold py-2 rounded hover:bg-teal-700 transition mt-2">View Details in List</a>
+                    </div>
+                </div>
+                
+                <div class="bg-white/10 rounded-xl p-6 flex flex-col justify-center items-center text-center h-[300px] border-2 border-dashed border-teal-700/50" id="result-placeholder">
+                    <span class="text-teal-200 text-4xl mb-2">☝️</span>
+                    <span class="text-teal-100">Select a priority on the left</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Detailed Comparison Table -->
+        <section id="comparison" class="py-8">
+            <h2 class="text-2xl font-bold text-stone-900 mb-6">Technical Specification Comparison</h2>
+            <div class="overflow-x-auto rounded-lg border border-stone-200 shadow-sm">
+                <table class="min-w-full divide-y divide-stone-200 bg-white text-sm">
+                    <thead class="bg-stone-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-medium text-stone-500 uppercase tracking-wider">Model</th>
+                            <th class="px-6 py-3 text-left font-medium text-stone-500 uppercase tracking-wider">Processor</th>
+                            <th class="px-6 py-3 text-left font-medium text-stone-500 uppercase tracking-wider">RAM</th>
+                            <th class="px-6 py-3 text-left font-medium text-stone-500 uppercase tracking-wider">Display</th>
+                            <th class="px-6 py-3 text-left font-medium text-stone-500 uppercase tracking-wider">Battery</th>
+                            <th class="px-6 py-3 text-left font-medium text-stone-500 uppercase tracking-wider">Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-200" id="comparison-body">
+                        <!-- Rows injected via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-900 text-stone-400 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="mb-2">Generated for Laptop Buying Research in Bangladesh.</p>
+            <p class="text-sm">Prices are approximate market averages (IDB/Multiplan) and subject to change.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Data Source ---
+        const laptops = [
+            {
+                id: 1,
+                name: "Lenovo IdeaPad Slim 3i Gen 8",
+                price: 82000,
+                displayPrice: "82,000 BDT",
+                processor: "Core i5-12450H",
+                ram: "16GB LPDDR5 4800MHz",
+                storage: "512GB NVMe SSD",
+                display: "15.6\" FHD IPS",
+                displayDetails: "1920x1080, Anti-glare",
+                battery: "47Wh",
+                weight: "1.62 kg",
+                type: "performance", // category for filter
+                cpuScore: 17500, // Approximate PassMark
+                screenHeight: 1080,
+                desc: "Best raw performance in budget. The 'H' series processor is great for heavier multitasking.",
+                pros: ["Powerful 'H' Series CPU", "Fast LPDDR5 RAM", "Great Keyboard for typing"],
+                cons: ["Average Battery Life", "Soldered RAM (Not upgradable)"],
+                icon: "🚀"
+            },
+            {
+                id: 2,
+                name: "Asus Vivobook 16 (X1605ZA)",
+                price: 84500,
+                displayPrice: "84,500 BDT",
+                processor: "Core i5-1235U",
+                ram: "16GB DDR4 (8GB onboard + 8GB)",
+                storage: "512GB NVMe SSD",
+                display: "16\" WUXGA IPS",
+                displayDetails: "1920x1200 (16:10), 300 nits",
+                battery: "42Wh",
+                weight: "1.88 kg",
+                type: "display",
+                cpuScore: 13500,
+                screenHeight: 1200,
+                desc: "Best display for coding. The 16:10 aspect ratio gives you more vertical space for code.",
+                pros: ["16-inch 16:10 Screen", "180-degree hinge", "Upgradable RAM slot"],
+                cons: ["Slightly heavier", "Average battery"],
+                icon: "🖥️"
+            },
+            {
+                id: 3,
+                name: "Acer Aspire 5 (A515-57)",
+                price: 79000,
+                displayPrice: "79,000 BDT",
+                processor: "Core i5-1235U",
+                ram: "16GB DDR4 (Upgradable)",
+                storage: "512GB NVMe SSD",
+                display: "15.6\" FHD IPS",
+                displayDetails: "1920x1080, ComfyView",
+                battery: "50Wh",
+                weight: "1.76 kg",
+                type: "balance",
+                cpuScore: 13600,
+                screenHeight: 1080,
+                desc: "The value king. Excellent upgradability and cooling for the price.",
+                pros: ["Dual Fan Cooling", "Upgradable RAM & Storage", "Thunderbolt 4 Port"],
+                cons: ["Plastic build quality", "Average speakers"],
+                icon: "🛠️"
+            },
+            {
+                id: 4,
+                name: "HP 15s (fq5xxx Series)",
+                price: 85000,
+                displayPrice: "85,000 BDT",
+                processor: "Core i5-1235U",
+                ram: "16GB DDR4 (8x2)",
+                storage: "512GB NVMe SSD",
+                display: "15.6\" FHD",
+                displayDetails: "1920x1080, Anti-glare",
+                battery: "41Wh",
+                weight: "1.69 kg",
+                type: "balance",
+                cpuScore: 13400,
+                screenHeight: 1080,
+                desc: "A reliable all-rounder with good after-sales service availability in Bangladesh.",
+                pros: ["Clean professional look", "Good Port Selection", "Widely available parts"],
+                cons: ["Build feels flimsy", "Display color accuracy is average"],
+                icon: "💼"
+            },
+            {
+                id: 5,
+                name: "MSI Modern 15 (B12M)",
+                price: 76000,
+                displayPrice: "76,000 BDT",
+                processor: "Core i5-1235U",
+                ram: "16GB DDR4 (Soldered)",
+                storage: "512GB NVMe SSD",
+                display: "15.6\" FHD IPS",
+                displayDetails: "1920x1080",
+                battery: "39Wh",
+                weight: "1.7 kg",
+                type: "budget",
+                cpuScore: 13200,
+                screenHeight: 1080,
+                desc: "Budget saver. Use the saved money to buy a 22-inch monitor for a dual-screen setup.",
+                pros: ["Lowest Price", "180-degree lay-flat", "Sleek design"],
+                cons: ["Small Battery", "Soldered RAM", "Average trackpad"],
+                icon: "💰"
+            }
+        ];
+
+        // --- DOM Elements ---
+        const grid = document.getElementById('laptop-grid');
+        const tableBody = document.getElementById('comparison-body');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // --- Functions ---
+
+        // 1. Render Cards
+        function renderLaptops(filterType) {
+            grid.innerHTML = '';
+            
+            const filtered = filterType === 'all' 
+                ? laptops 
+                : laptops.filter(l => l.type === filterType || (filterType === 'balance' && ['balance', 'budget'].includes(l.type)));
+
+            filtered.forEach(laptop => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl border border-stone-200 p-6 card-hover flex flex-col h-full relative overflow-hidden";
+                
+                // Badge for specific traits
+                let badge = "";
+                if(laptop.type === 'performance') badge = `<span class="absolute top-0 right-0 bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-bl-lg">High Performance</span>`;
+                if(laptop.type === 'display') badge = `<span class="absolute top-0 right-0 bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-bl-lg">Top Display</span>`;
+                if(laptop.type === 'budget') badge = `<span class="absolute top-0 right-0 bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-bl-lg">Best Value</span>`;
+
+                card.innerHTML = `
+                    ${badge}
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-stone-900 leading-tight">${laptop.name}</h3>
+                        <div class="text-3xl">${laptop.icon}</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="text-2xl font-bold text-teal-700">${laptop.displayPrice}</span>
+                        <p class="text-xs text-stone-500">Approx. Market Price</p>
+                    </div>
+
+                    <p class="text-stone-600 text-sm mb-6 flex-grow">${laptop.desc}</p>
+
+                    <!-- Mini Specs Grid -->
+                    <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-sm text-stone-700 mb-6 bg-stone-50 p-3 rounded-lg">
+                        <div class="flex items-center gap-1">
+                            <span class="text-teal-600">⚙️</span> ${laptop.processor.replace("Core ", "")}
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span class="text-teal-600">💾</span> 16GB RAM
+                        </div>
+                         <div class="flex items-center gap-1">
+                            <span class="text-teal-600">📼</span> ${laptop.storage.split(' ')[0]} SSD
+                        </div>
+                         <div class="flex items-center gap-1">
+                            <span class="text-teal-600">📺</span> ${laptop.display.split(' ')[0]}
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 mb-6">
+                        <p class="text-xs font-bold text-stone-400 uppercase">Pros</p>
+                        <ul class="text-sm space-y-1">
+                            ${laptop.pros.map(pro => `<li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> ${pro}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <button class="w-full mt-auto bg-stone-900 text-white py-2 rounded-lg font-medium hover:bg-stone-800 transition text-sm">
+                        Check Specs Detail
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 2. Render Table
+        function renderTable() {
+            tableBody.innerHTML = laptops.map(l => `
+                <tr class="hover:bg-stone-50 transition">
+                    <td class="px-6 py-4 whitespace-nowrap font-medium text-stone-900">${l.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-stone-600">${l.processor}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-stone-600">${l.ram}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-stone-600">${l.display}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-stone-600">${l.battery}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-stone-600">${l.weight}</td>
+                </tr>
+            `).join('');
+        }
+
+        // 3. Filter Interaction
+        function filterLaptops(type) {
+            renderLaptops(type);
+            
+            // Update buttons
+            filterBtns.forEach(btn => {
+                if(btn.dataset.filter === type) {
+                    btn.classList.add('bg-teal-100', 'text-teal-800');
+                    btn.classList.remove('text-stone-600', 'hover:bg-stone-100');
+                } else {
+                    btn.classList.remove('bg-teal-100', 'text-teal-800');
+                    btn.classList.add('text-stone-600', 'hover:bg-stone-100');
+                }
+            });
+        }
+
+        // 4. Recommendation Logic
+        function highlightRecommendation(criteria) {
+            let resultId = 3; // Default Acer
+            
+            if(criteria === 'performance') resultId = 1; // Lenovo
+            if(criteria === 'display') resultId = 2; // Asus
+            if(criteria === 'balance') resultId = 3; // Acer/HP
+
+            const pick = laptops.find(l => l.id === resultId);
+
+            document.getElementById('result-placeholder').classList.add('hidden');
+            const resCard = document.getElementById('result-card');
+            resCard.classList.remove('hidden');
+            resCard.classList.add('flex');
+
+            document.getElementById('res-title').innerText = pick.name;
+            document.getElementById('res-desc').innerText = pick.desc;
+            document.getElementById('res-price').innerText = pick.displayPrice;
+            document.getElementById('res-icon').innerText = pick.icon;
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Chart Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLaptops('all');
+            renderTable();
+
+            // 1. Performance Chart (Scatter/Bar hybrid representation)
+            const ctxPerf = document.getElementById('performanceChart').getContext('2d');
+            new Chart(ctxPerf, {
+                type: 'bubble', // Using bubble to show Price (X) vs Performance (Y)
+                data: {
+                    datasets: laptops.map(l => ({
+                        label: l.name,
+                        data: [{
+                            x: l.price,
+                            y: l.cpuScore,
+                            r: 10 // Fixed radius
+                        }],
+                        backgroundColor: l.type === 'performance' ? '#0f766e' : (l.type === 'display' ? '#7e22ce' : '#d97706')
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 10 } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: Score ${context.raw.y} / Cost ${context.raw.x} BDT`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Price (BDT)' },
+                            min: 74000,
+                            max: 87000
+                        },
+                        y: {
+                            title: { display: true, text: 'CPU PassMark Score (Higher is Better)' },
+                            min: 12000,
+                            max: 18000
+                        }
+                    }
+                }
+            });
+
+            // 2. Screen Real Estate Chart (Bar)
+            const ctxScreen = document.getElementById('screenChart').getContext('2d');
+            new Chart(ctxScreen, {
+                type: 'bar',
+                data: {
+                    labels: laptops.map(l => l.name.split(' ')[0] + ' ' + l.name.split(' ')[1]), // Short names
+                    datasets: [{
+                        label: 'Vertical Pixels (Height)',
+                        data: laptops.map(l => l.screenHeight),
+                        backgroundColor: laptops.map(l => l.screenHeight > 1080 ? '#0f766e' : '#d6d3d1'),
+                        borderColor: 'transparent',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal Bar
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: false,
+                            min: 800,
+                            title: { display: true, text: 'Pixels' }
+                        }
+                    }
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
